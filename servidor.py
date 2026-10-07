@@ -30,7 +30,7 @@ def buscar_noticias(tema: str, limite: int = 5) -> list[dict] | str:
                 "titulo": entrada.get("title", "Sin título"),
                 "autor": entrada.get("author", "Autor no especificado"),
                 "fecha": entrada.get("published", "Fecha desconocida"),
-                "resumen": entrada.get("summary", "Sin resumen"),
+                "resumen": entrada.get("summary", "Sin resumen").split("Abstract:")[-1].lstrip(),  # Tomamos solo la primera parte antes de "Abstract:"
                 "url": entrada.get("link", "#")
             }
             lista_noticias.append(noticia)
