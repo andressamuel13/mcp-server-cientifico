@@ -1,3 +1,4 @@
+import os
 from fastmcp import FastMCP
 import feedparser
 from config import FEEDS_CIENCIA  # Importamos el diccionario con tus URLs
@@ -39,4 +40,9 @@ def buscar_noticias(tema: str, limite: int = 5) -> list[dict] | str:
         return "No se encontraron noticias o hubo un problema al conectar con la fuente."
 
 if __name__ == "__main__":
-    mcp.run(transport="stdio")
+    puerto = os.environ.get("PORT")
+
+    if puerto:
+        mcp.run(transport="http", host="0.0.0.0", port=int(puerto))
+    else:
+        mcp.run(transport="stdio")
